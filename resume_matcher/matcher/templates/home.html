@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Matcher</title>
+</head>
+<body>
+    <h1>Resume Matcher</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="resume">Upload Resume:</label>
+        <input type="file" name="resume" accept=".pdf,.doc,.docx" required><br>
+        
+        <label for="job_description">Upload Job Description:</label>
+        <input type="file" name="job_description" accept=".pdf,.doc,.docx" required><br>
+        
+        <button type="submit">Match</button>
+    </form>
+
+    {% if match_percentage is not None %}
+        <div class="result">
+            <h2>Match Percentage: {{ match_percentage|floatformat:2 }}%</h2>
+        </div>
+    {% endif %}
+</body>
+</html>
